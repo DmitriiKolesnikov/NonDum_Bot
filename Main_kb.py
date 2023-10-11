@@ -9,9 +9,9 @@ kb_main.add(Raspisanie).insert(Prepodi).add(Kafedri)
 tusovki_kb = InlineKeyboardMarkup(row_width=2)
 btn1 = InlineKeyboardButton(text='Наше сообщество',
                             url='https://vk.com/nondum.party')
-btn2 = InlineKeyboardButton(text='Ближайшие мероприятия',
+btn2 = InlineKeyboardButton(text='Ближайшее мероприятие',
                             callback_data='parties')
-btn3 = InlineKeyboardButton(text='Покупка билета',
+btn3 = InlineKeyboardButton(text='Купить билет',
                             callback_data='buy')
 tusovki_kb.add(btn1).add(btn2).add(btn3)
 
@@ -122,4 +122,7 @@ types_of_group_lessons_first_linal_btns = [
 ]
 types_of_group_lessons_first_linal_kb = InlineKeyboardMarkup().row(*types_of_group_lessons_first_linal_btns)
 
-
+return_to_buy_ticket = [
+    InlineKeyboardButton(text='Купить билет', callback_data='buy')
+]
+buy_ticket_kb = InlineKeyboardMarkup().row(*return_to_buy_ticket)
