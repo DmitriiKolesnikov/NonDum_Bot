@@ -1,5 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
-from openpyxl import Workbook
+import os
+import easyocr
+import logging
 from datetime import datetime
 from All_text import *
 from Main_kb import *
@@ -13,21 +15,18 @@ bot = Bot(TOKEN_API)
 dp = Dispatcher(bot)
 
 
+reader = easyocr.Reader(['en', 'ru'])
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
 ## 905449479 - Ника Осадчева
 ## 5490940595 - Даня Мальцев
+## 317434662 - Максимилиан Радзевич
 
-
-wb = Workbook()
-ws = wb.active
-user_id_list = ['id_пользователя']
-user_name_list = ['Имя пользователя']
-registration_data_list = ['Дата регистрации пользователя']
-ticket_price_list = ['Сумма покупок билетов']
-poizon_price_list = ['Сумма  покупок на пойзоне']
-commission_list = ['Величина комисси']
-final_price_list = ['Итоговая сумма']
-admin_list = ['Роль пользователя']
-list_of_admins_id = [683092826, 5490940595, 905449479]
+list_of_admins_id = [683092826, 5490940595, 905449479, 317434662]
 promo_list_10_percent = ['dfuTvxe', 'taEm2hQ', 'lKhyJWt', '7ug0avp', 'JA97V17', 'UbCyFsu', 'PFIpAMc', 'Fz48DBY',
                          's1UqXAk', 'fKB4wbQ', 'xWuEG7S', '04yxkqn', '7OJwFPB', 'wF7AvHI', 'XliL9Za', '4tbOWGz',
                          'aDQMnZY', 'kKzMlvh', 'Buq5PRS', 'l7EkUpZ', 'kSzaVQw', 'ueMHa8c', 'KmDaBvS', 'rl7XLR9',
@@ -59,6 +58,12 @@ async def start_command(m: types.Message) -> None:
             users_role = 'Пользователь'
             list_of_main_google_info = [m.from_user.id, user_name, users_role, current_time]
             worksheet.append_row(list_of_main_google_info)
+
+        await bot.send_message(chat_id=683092826,
+                               text=f'Даниил, в вашей сиситеме зарегистрировался новый пользователь:\n\n'
+                                    f'Ник пользователя в Телеграм: @{m.from_user.full_name}\n'
+                                    f'Дата регистрации: {datetime.now().date()}'
+                                    f'Роль пользователя: {list_of_main_google_info[2]}')
     else:
         pass
 
@@ -117,43 +122,13 @@ async def orders_from_poizon(m: types.Message) -> None:
 async def words_handler(m: types.Message):
 
     message = m.text.split()
-    main_columns_name_data = [user_id_list,
-                              user_name_list,
-                              registration_data_list,
-                              ticket_price_list,
-                              poizon_price_list,
-                              commission_list,
-                              final_price_list,
-                              admin_list]
 
-    if len(message) == 2 and m.text.istitle():
-        if m.from_user.id not in user_id_list:
-            user_id_list.append(str(m.from_user.id))
-            user_name_list.append(m.text)
-            current_date = datetime.now().date()
-            registration_data_list.append(str(current_date))
-            if m.from_user.id in list_of_admins_id:
-                admin_list.append('Админ')
-            elif m.from_user.id not in list_of_admins_id:
-                admin_list.append('Пользователь')
-            for row in main_columns_name_data:
-                ws.append(row)
-            wb.save("Nondum_clients.xlsx")
-        else:
-            pass
-        await bot.send_message(chat_id=m.from_user.id,
-                               text=f"Приятно познакомиться, {m.text}",
-                               reply_markup=kb_main)
-        await bot.send_message(chat_id=5490940595,
-                               text=f'Уважаемый Даниил, к вам запсался новый пользователь по имени {m.text}')
-
-    elif len(message) == 2 and m.text == 'Скинь эксель' or m.text == 'Скинь exel':
+    if len(message) == 2 and m.text == 'Скинь эксель' or m.text == 'Скинь exel':
         await m.reply_document(open('Nondum_clients.xlsx', 'rb'))
         await m.delete()
 
     elif len(message) == 1 and len(message[0]) == 7 and message[0] in promo_list_10_percent:
         promo_list_10_percent.remove(message[0])
-        print(len(promo_list_10_percent))
         current_time = datetime.now()
         if current_time < datetime.strptime('2023-10-29', "%Y-%m-%d"):
             buttons = [
@@ -284,7 +259,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         if current_time < datetime.strptime('2023-10-29', "%Y-%m-%d"):
             buy_buttons_first = [
                 InlineKeyboardButton('Оплатить 2500Р', callback_data='payment_tickets_2500'),
-                InlineKeyboardButton('Воспользоваться промокодом', callback_data='promo')
+                InlineKeyboardButton('Промокод', callback_data='promo')
             ]
             buy_kb = InlineKeyboardMarkup().row(*buy_buttons_first)
             await bot.send_message(chat_id=callback.from_user.id,
@@ -296,7 +271,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         if current_time > datetime.strptime('2023-10-29', "%Y-%m-%d"):
             buy_buttons = [
                 InlineKeyboardButton('Оплатить 3000Р', callback_data='payment_tickets_3000'),
-                InlineKeyboardButton('Воспользоваться промокодом', callback_data='promo')
+                InlineKeyboardButton('Промокод', callback_data='promo')
             ]
             buy_kb = InlineKeyboardMarkup().row(*buy_buttons)
             await bot.send_message(chat_id=callback.from_user.id,
@@ -311,6 +286,275 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                text=f'Введите промокод, который вы получили от организаторов',
                                parse_mode="HTML")
 
+
+@dp.message_handler(content_types=types.ContentTypes.PHOTO)
+async def process_photo(message: types.Message):
+    photo = message.photo[-1]
+    photo_path = f"photo_{photo.file_id}.jpg"
+    await photo.download(photo_path)
+    result = reader.readtext(photo_path)
+    list_from_text = ''
+    text = "\n".join([i[1] for i in result])
+    await bot.send_message(chat_id=message.from_user.id,
+                           text=f'{text}')
+    for i in result:
+        list_from_text += i[1]
+    os.remove(photo_path)
+    num = ''
+    num_list = []
+    for char in list_from_text:
+        if char.isdigit():
+            num = num + char
+        else:
+            if num != '':
+                num_list.append(int(num))
+                num = ''
+    if num != '':
+        num_list.append(int(num))
+
+    day = datetime.now().day
+    month = datetime.now().month
+    year = datetime.now().year
+
+    if 3000 in num_list or '3000 ₽' in text or '3 ООО ₽' in text or '3000.00' in text or '3 000.00 p.' in text or \
+            '3 000.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
+                                    f'Сумма покупки составила 3000 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 3000 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 5).value is None and \
+                worksheet.cell(row_number, column_number + 4).value is None:
+            worksheet.update_cell(row_number, column_number + 4, 1)
+            worksheet.update_cell(row_number, column_number + 5, 3000)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
+            price = int(worksheet.cell(row_number, column_number + 5).value) + 3000
+            worksheet.update_cell(row_number, column_number + 4, amount)
+            worksheet.update_cell(row_number, column_number + 5, price)
+
+    elif 2000 in num_list or '2000 ₽' in text or '2 ООО ₽' in text or '2000.00' in text or '2 000.00 p.' in text or \
+            '2 000.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
+                                    f'Сумма покупки составила 2000 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2000 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 5).value is None and \
+                worksheet.cell(row_number, column_number + 4).value is None:
+            worksheet.update_cell(row_number, column_number + 4, 1)
+            worksheet.update_cell(row_number, column_number + 5, 2000)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
+            price = int(worksheet.cell(row_number, column_number + 5).value) + 2000
+            worksheet.update_cell(row_number, column_number + 4, amount)
+            worksheet.update_cell(row_number, column_number + 5, price)
+
+    elif 2500 in num_list or '2500 ₽' in text or '2 5ОО ₽' in text or '2500.00' in text or '2 500.00 p.' in text or \
+            '2 500.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
+                                    f'Сумма покупки составила 2500 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2500 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 5).value is None and \
+                worksheet.cell(row_number, column_number + 4).value is None:
+            worksheet.update_cell(row_number, column_number + 4, 1)
+            worksheet.update_cell(row_number, column_number + 5, 2500)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
+            price = int(worksheet.cell(row_number, column_number + 5).value) + 2500
+            worksheet.update_cell(row_number, column_number + 4, amount)
+            worksheet.update_cell(row_number, column_number + 5, price)
+
+    elif 2500 in num_list or '2400 ₽' in text or '2 4ОО ₽' in text or '2400.00' in text or '2 400.00 p.' in text or \
+            '2 400.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
+                                    f'Сумма покупки составила 2400 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2400 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 5).value is None and \
+                worksheet.cell(row_number, column_number + 4).value is None:
+            worksheet.update_cell(row_number, column_number + 4, 1)
+            worksheet.update_cell(row_number, column_number + 5, 2400)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
+            price = int(worksheet.cell(row_number, column_number + 5).value) + 2400
+            worksheet.update_cell(row_number, column_number + 4, amount)
+            worksheet.update_cell(row_number, column_number + 5, price)
+
+    elif 5500 in num_list or '5500 ₽' in text or '5 5ОО ₽' in text or '5500.00' in text or '5 500.00 p.' in text or \
+            '5 500.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели индивидульный курс.\n'
+                                    f'Сумма покупки составила 5500 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 5500 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 11000 in num_list or '11000 ₽' in text or '11 0ОО ₽' in text or '11000.00' in text or '11 000.00 p.' in text \
+            or '11 000.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели индивидуальный курс.\n'
+                                    f'Сумма покупки составила 11000 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 11000 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 16500 in num_list or '16500 ₽' in text or '16 5ОО ₽' in text or '16500.00' in text or '16 500.00 p.' in text \
+            or '16 500.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели индивидуальный курс.\n'
+                                    f'Сумма покупки составила 16500 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 16500 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 219000 in num_list or '21900 ₽' in text or '21 9ОО ₽' in text or '21900.00' in text or '21 900.00 p.' in text \
+            or '21 900.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели индивидуальный курс.\n'
+                                    f'Сумма покупки составила 21900 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 21900 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 2900 in num_list or '2900 ₽' in text or '2 9ОО ₽' in text or '2900.00' in text or '2 900.00 p.' in text \
+            or '2 900.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели групповой курс.\n'
+                                    f'Сумма покупки составила 2900 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2900 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 5600 in num_list or '5600 ₽' in text or '5 6ОО ₽' in text or '5600.00' in text or '5 600.00 p.' in text \
+            or '5 600.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели курс.\n'
+                                    f'Сумма покупки составила 5600 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 5600 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 8390 in num_list or '8390 ₽' in text or '8 39О ₽' in text or '8390.00' in text or '8 390.00 p.' in text \
+            or '8 390.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели групповой курс.\n'
+                                    f'Сумма покупки составила 8390 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 8390 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    elif 10990 in num_list or '10990 ₽' in text or '10 99О ₽' in text or '10990.00' in text or '10 990.00 p.' in text \
+            or '10 990.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели групповой курс.\n'
+                                    f'Сумма покупки составила 10990 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 10990 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+    else:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, ваша заявка находится на '
+                                    f'рассмотрении.\n'
+                                    f'Ожидайте ответа от технической поддержки.')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, произошла ошибка во время оплаты: невозможно проверить'
+                                     f'действительность оплаты.\n'
+                                     f'Данные о пользователе:\n'
+                                     f'Ник в Телеграм: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+
+
+
+
+    os.remove(photo_path)
 
 if __name__ == "__main__":
     executor.start_polling(dp,

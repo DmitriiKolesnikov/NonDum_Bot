@@ -106,7 +106,7 @@ types_of_individual_lessons_first_linal_kb = InlineKeyboardMarkup().row(*types_o
 
 types_of_group_lessons_first_matan_btns = [
     InlineKeyboardButton(text='2900', callback_data='2900_f_m'),
-    InlineKeyboardButton(text='5500', callback_data='5501_f_m'),
+    InlineKeyboardButton(text='5600', callback_data='5501_f_m'),
     InlineKeyboardButton(text='8390', callback_data='8390_f_m'),
     InlineKeyboardButton(text='10990', callback_data='10990_f_m'),
 
@@ -115,7 +115,7 @@ types_of_group_lessons_first_matan_kb = InlineKeyboardMarkup().row(*types_of_gro
 
 types_of_group_lessons_first_linal_btns = [
     InlineKeyboardButton(text='2900', callback_data='2900_l_m'),
-    InlineKeyboardButton(text='5500', callback_data='5501_l_m'),
+    InlineKeyboardButton(text='5600', callback_data='5501_l_m'),
     InlineKeyboardButton(text='8390', callback_data='8390_l_m'),
     InlineKeyboardButton(text='10990', callback_data='10990_l_m'),
 
