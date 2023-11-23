@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 ## 5490940595 - Даня Мальцев
 ## 317434662 - Максимилиан Радзевич
 
+
 list_of_admins_id = [683092826, 5490940595, 905449479, 317434662]
 promo_list_10_percent = ['dfuTvxe', 'taEm2hQ', 'lKhyJWt', '7ug0avp', 'JA97V17', 'UbCyFsu', 'PFIpAMc', 'Fz48DBY',
                          's1UqXAk', 'fKB4wbQ', 'xWuEG7S', '04yxkqn', '7OJwFPB', 'wF7AvHI', 'XliL9Za', '4tbOWGz',
@@ -123,11 +124,7 @@ async def words_handler(m: types.Message):
 
     message = m.text.split()
 
-    if len(message) == 2 and m.text == 'Скинь эксель' or m.text == 'Скинь exel':
-        await m.reply_document(open('Nondum_clients.xlsx', 'rb'))
-        await m.delete()
-
-    elif len(message) == 1 and len(message[0]) == 7 and message[0] in promo_list_10_percent:
+    if len(message) == 1 and len(message[0]) == 7 and message[0] in promo_list_10_percent:
         promo_list_10_percent.remove(message[0])
         current_time = datetime.now()
         if current_time < datetime.strptime('2023-10-29', "%Y-%m-%d"):
@@ -152,7 +149,8 @@ async def words_handler(m: types.Message):
 
     elif len(message) == 1 and len(message[0]) == 7 and message[0] not in promo_list_10_percent:
         await bot.send_message(chat_id=m.from_user.id,
-                               text=f'К сожалению, данный промокод уже был использован. Попробуйте ввести другой',
+                               text=f'К сожалению, данный промокод <b>уже был использован</b> '
+                                    f'или такого <b>не существует</b>. \n\nПопробуйте ввести другой',
                                parse_mode="HTML")
         await m.delete()
 
@@ -172,58 +170,104 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
 
     elif callback.data == 'first_course':
         await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_first_course_text,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены <b>материлы</b> для самостоятельной подготовки и <b>занятия с '
+                                    f'преподавателем</b> '
+                                    f'по выбранным дисциплинам: \n\n<b>Математический анализ,\nЛинейная алгебра,\n'
+                                    f'Экономическая география,\nВведение в экономику.</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
                                parse_mode="HTML",
                                reply_markup=studying_first_kb)
         await callback.message.delete()
 
     elif callback.data == 'second_course':
         await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_second_course_text,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены <b>занятие с '
+                                    f'преподавателем</b> '
+                                    f'по выбранным дисциплинам: \n\n<b>Математическая статистика,\nМикроэкономика,\n'
+                                    f'Макроэкономика,\nДемография.</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
                                parse_mode="HTML",
-                               reply_markup=studying_second_kb)
+                               reply_markup=lessons_second_kb)
         await callback.message.delete()
 
     elif callback.data == 'files_first_course':
         await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_files_first_course_text,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены <b>материлы</b> для самостоятельной подготовки '
+                                    f'по выбранным дисциплинам: \n<b>Математический анализ\nЛинейная алгебра\n'
+                                    f'Экономическая география\nВведение в экономику</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее.\n'
+                                    f'После клика, с вами свяжется наше контакное лицо',
                                parse_mode="HTML",
                                reply_markup=subjects_first_kb)
         await callback.message.delete()
 
+    elif callback.data == 'matan_first_s':
+        await bot.send_message(chat_id=683092826,
+                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+                                    f'самомтоятельной подготовки. Данные заявки:\n\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
+                                    f'Выбранный предмет: <b>математический анализ</b>',
+                               parse_mode='HTML')
+
+    elif callback.data == 'linal_first_s':
+        await bot.send_message(chat_id=683092826,
+                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+                                    f'самомтоятельной подготовки. Данные заявки:\n\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
+                                    f'Выбранный предмет: <b>линейная алгебра</b>',
+                               parse_mode='HTML')
+
+    elif callback.data == 'ekgeo_first_s':
+        await bot.send_message(chat_id=683092826,
+                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+                                    f'самомтоятельной подготовки. Данные заявки:\n\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
+                                    f'Выбранный предмет: <b>экономическая география</b>',
+                               parse_mode='HTML')
+
+    elif callback.data == 'vvek_first_s':
+        await bot.send_message(chat_id=683092826,
+                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+                                    f'самомтоятельной подготовки. Данные заявки:\n\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
+                                    f'Выбранный предмет: <b>введение в экономику/b>',
+                               parse_mode='HTML')
+
     elif callback.data == 'lessons_first_course':
         await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_lessons_first_course_text,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены предметы для изучения:'
+                                    f' \n<b>математический анализ</b> и <b>линейная алгебра</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
                                parse_mode="HTML",
                                reply_markup=lessons_first_kb)
         await callback.message.delete()
 
     elif callback.data == 'matan_first':
         await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_matan_first_text,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены способы заниматься математическим анализом с преподавателем:'
+                                    f' \n<b>индивидуально</b> и <b>в группе</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
                                parse_mode="HTML",
                                reply_markup=types_of_lessons_first_matan_kb)
         await callback.message.delete()
 
     elif callback.data == 'linal_first':
         await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_linal_first_text,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены способы заниматься линейной алгеброй с преподавателем:'
+                                    f' \n<b>индивидуально</b> и <b>в группе</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
                                parse_mode="HTML",
                                reply_markup=types_of_lessons_first_linal_kb)
-        await callback.message.delete()
-
-    elif callback.data == 'files_second_course':
-        await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_files_second_course_text,
-                               parse_mode="HTML",
-                               reply_markup=subjects_second_kb)
-        await callback.message.delete()
-
-    elif callback.data == 'lessons_second_course':
-        await bot.send_message(chat_id=callback.from_user.id,
-                               text=callback_lessons_second_course_text,
-                               parse_mode="HTML",
-                               reply_markup=lessons_second_kb)
         await callback.message.delete()
 
     elif callback.data == 'individual_first_m':
@@ -254,6 +298,90 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                reply_markup=types_of_group_lessons_first_linal_kb)
         await callback.message.delete()
 
+    elif callback.data == 'matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены способы заниматься математической статистикой с преподавателем:'
+                                    f' \n<b>индивидуально</b> или <b>в группе</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
+                               parse_mode='HTML',
+                               reply_markup=types_of_lessons_second_matstat_kb)
+
+    elif callback.data == 'individual_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'соло матстат выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_individual_lessons_second_matstat_kb)
+
+    elif callback.data == 'group_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'группа матстат выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_group_lessons_second_matstat_kb)
+
+    elif callback.data == 'mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены способы заниматься микроэкономикой с преподавателем:'
+                                    f' \n<b>индивидуально</b> или <b>в группе</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
+                               parse_mode='HTML',
+                               reply_markup=types_of_lessons_second_mikra_kb)
+
+    elif callback.data == 'individual_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'соло микра выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_individual_lessons_second_mikra_kb)
+
+    elif callback.data == 'group_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'группа  микра выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_group_lessons_second_mikra_kb)
+
+    elif callback.data == 'makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены способы заниматься макроэкономикой с преподавателем:'
+                                    f' \n<b>индивидуально</b> или <b>в группе</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
+                               parse_mode='HTML',
+                               reply_markup=types_of_lessons_second_makra_kb)
+
+    elif callback.data == 'individual_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'соло мaкра выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_individual_lessons_second_makra_kb)
+
+    elif callback.data == 'group_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'группа  мaкра выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_group_lessons_second_makra_kb)
+
+    elif callback.data == 'demograf':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, в данном разделе вам '
+                                    f'представлены способы заниматься демографией с преподавателем:'
+                                    f' \n<b>индивидуально</b> или <b>в группе</b>\n\n'
+                                    f'Чтобы выбрать интересующая вас опцию, достаточно кликнуть на нее)',
+                               parse_mode='HTML',
+                               reply_markup=types_of_lessons_second_demo_kb)
+
+    elif callback.data == 'individual_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'соло демография выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_individual_lessons_second_demo_kb)
+
+    elif callback.data == 'group_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'группа  демография выбор цены',
+                               parse_mode='HTML',
+                               reply_markup=types_of_group_lessons_second_demo_kb)
+
     elif callback.data == 'buy':
         current_time = datetime.now()
         if current_time < datetime.strptime('2023-10-29', "%Y-%m-%d"):
@@ -281,10 +409,1113 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                    parse_mode="HTML",
                                    reply_markup=buy_kb)
 
+        await callback.message.delete()
+
     elif callback.data == 'promo':
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Введите промокод, который вы получили от организаторов',
                                parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == 'payment_ticket_2000':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == 'payment_ticket_2400':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2400р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2400 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == 'payment_tickets_3000':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>3000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>3000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == 'payment_tickets_2500':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_f_m':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5500_f_m':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '11000_f_m':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>11000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>11000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '16500_f_m':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>16500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>16500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '21900_f_m':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>21900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>21900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_f_l':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5500_f_l':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '11000_f_l':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>11000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>11000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '16500_f_l':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>16500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>16500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '21900_f_l':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>21900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b21900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '1000_m_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2100р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2100 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '1000_m_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>1000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>1000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5501_m_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5600р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '8390_m_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>8390р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>83900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '10990_m_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>10990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>10990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2100_l_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матану. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2100р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2100 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_l_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5501_l_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5600р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5501 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '8390_l_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '10990_l_f':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по линалу. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>10990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>10990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5500_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '11000_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>11000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>11000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '16500_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>16500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>16500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '21900_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>21900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>21900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '1000_g_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>1000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>1000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_g_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5501_g_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5600р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5600 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '8390_g_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>8390р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>8390 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '10990_g_matstat':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по матстату. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>10990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>10990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по микроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5500_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по микроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>5500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '11000_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по микроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>11000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>11000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '16500_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по микроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>16500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>16500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '21900_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по микроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>21900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>21900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '1000_g_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по микроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>1000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>1000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_g_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по микроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5501_g_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по микроэкономие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5600р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5600 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '8390_g_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по микроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>8390р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>8390 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '10990_g_mikra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по микроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>10990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>10990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по мaкроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5500_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по мaкроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>5500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '11000_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по мaкроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>11000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>11000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '16500_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по мaкроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>16500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>16500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '21900_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по мaкроэкономике. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>21900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>21900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '1000_g_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по мaкроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>1000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>1000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_g_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по мaкроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5501_g_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по мaкроэкономие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5600р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5600 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '8390_g_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по мaкроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>8390р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>8390 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '10990_g_makra':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по мaкроэкономике. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>10990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>10990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по демографиe. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5500_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по демографиe. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>5500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '11000_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по демографиe. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>11000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>11000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '16500_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по демографие. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>16500р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>16500 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '21900_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату индивидуальных занятий по демографие. '
+                                    f'<b>Сумма перевода</b> '
+                                    f'должна составлять <b>21900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>21900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '1000_g_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по демографие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>1000р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>1000 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '2900_g_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по демографие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>2900р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>2900 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '5501_g_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по демографие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>5600р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>5600 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '8390_g_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по демографие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>8390р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>8390 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
+
+    elif callback.data == '10990_g_demo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
+                                    f'скриншот, '
+                                    f'подтверждающий оплату групповых занятий по демографие. <b>Сумма перевода</b> '
+                                    f'должна составлять <b>10990р</b>.\n\n'
+                                    f'<b>Правила отправления скриншота о переводе</b>:\n\n'
+                                    f'<b>Дата</b> перевода должна быть <b>сегодняшней</b>, то есть'
+                                    f' <b>{datetime.now().date()}</b>,\n'
+                                    f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
+                                    f' <b>10990 рублей</b>,\n'
+                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
+                                    f' <b>Иванов Кто-то Там</b>',
+                               parse_mode="HTML")
+
+        await callback.message.delete()
 
 
 @dp.message_handler(content_types=types.ContentTypes.PHOTO)
@@ -295,7 +1526,7 @@ async def process_photo(message: types.Message):
     result = reader.readtext(photo_path)
     list_from_text = ''
     text = "\n".join([i[1] for i in result])
-    await bot.send_message(chat_id=message.from_user.id,
+    await bot.send_message(chat_id=683092826,
                            text=f'{text}')
     for i in result:
         list_from_text += i[1]
@@ -397,7 +1628,7 @@ async def process_photo(message: types.Message):
             worksheet.update_cell(row_number, column_number + 4, amount)
             worksheet.update_cell(row_number, column_number + 5, price)
 
-    elif 2500 in num_list or '2400 ₽' in text or '2 4ОО ₽' in text or '2400.00' in text or '2 400.00 p.' in text or \
+    elif 2400 in num_list or '2400 ₽' in text or '2 4ОО ₽' in text or '2400.00' in text or '2 400.00 p.' in text or \
             '2 400.00 p' in text:
         await bot.send_message(chat_id=message.from_user.id,
                                text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
@@ -424,6 +1655,52 @@ async def process_photo(message: types.Message):
             worksheet.update_cell(row_number, column_number + 4, amount)
             worksheet.update_cell(row_number, column_number + 5, price)
 
+    elif 1000 in num_list or '1000 ₽' in text or '1 0ОО ₽' in text or '1000.00' in text or '1 000.00 p.' in text or \
+            '1 000.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели индивидульный курс.\n'
+                                    f'Сумма покупки составила 1000 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 1000 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 6).value is None:
+            worksheet.update_cell(row_number, column_number + 6, 1000)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 6).value) + 1000
+            worksheet.update_cell(row_number, column_number + 6, amount)
+
+    elif 2900 in num_list or '2900 ₽' in text or '2 9ОО ₽' in text or '2900.00' in text or '2 900.00 p.' in text or \
+            '2 900.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы приобрели индивидульный курс.\n'
+                                    f'Сумма покупки составила 2100 рублей\n')
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2100 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 6).value is None:
+            worksheet.update_cell(row_number, column_number + 6, 2900)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 6).value) + 2900
+            worksheet.update_cell(row_number, column_number + 6, amount)
+
     elif 5500 in num_list or '5500 ₽' in text or '5 5ОО ₽' in text or '5500.00' in text or '5 500.00 p.' in text or \
             '5 500.00 p' in text:
         await bot.send_message(chat_id=message.from_user.id,
@@ -437,6 +1714,15 @@ async def process_photo(message: types.Message):
                                      f'Cумма покупки 5500 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 6).value is None:
+            worksheet.update_cell(row_number, column_number + 6, 5500)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 6).value) + 5500
+            worksheet.update_cell(row_number, column_number + 6, amount)
 
     elif 11000 in num_list or '11000 ₽' in text or '11 0ОО ₽' in text or '11000.00' in text or '11 000.00 p.' in text \
             or '11 000.00 p' in text:
@@ -452,6 +1738,15 @@ async def process_photo(message: types.Message):
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
 
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 6).value is None:
+            worksheet.update_cell(row_number, column_number + 6, 11000)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 6).value) + 11000
+            worksheet.update_cell(row_number, column_number + 6, amount)
+
     elif 16500 in num_list or '16500 ₽' in text or '16 5ОО ₽' in text or '16500.00' in text or '16 500.00 p.' in text \
             or '16 500.00 p' in text:
         await bot.send_message(chat_id=message.from_user.id,
@@ -465,6 +1760,15 @@ async def process_photo(message: types.Message):
                                      f'Cумма покупки 16500 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 6).value is None:
+            worksheet.update_cell(row_number, column_number + 6, 16500)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 6).value) + 16500
+            worksheet.update_cell(row_number, column_number + 6, amount)
 
     elif 219000 in num_list or '21900 ₽' in text or '21 9ОО ₽' in text or '21900.00' in text or '21 900.00 p.' in text \
             or '21 900.00 p' in text:
@@ -480,6 +1784,15 @@ async def process_photo(message: types.Message):
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
 
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 6).value is None:
+            worksheet.update_cell(row_number, column_number + 6, 21900)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 6).value) + 21900
+            worksheet.update_cell(row_number, column_number + 6, amount)
+
     elif 2900 in num_list or '2900 ₽' in text or '2 9ОО ₽' in text or '2900.00' in text or '2 900.00 p.' in text \
             or '2 900.00 p' in text:
         await bot.send_message(chat_id=message.from_user.id,
@@ -493,6 +1806,15 @@ async def process_photo(message: types.Message):
                                      f'Cумма покупки 2900 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 7).value is None:
+            worksheet.update_cell(row_number, column_number + 7, 2900)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 7).value) + 2900
+            worksheet.update_cell(row_number, column_number + 7, amount)
 
     elif 5600 in num_list or '5600 ₽' in text or '5 6ОО ₽' in text or '5600.00' in text or '5 600.00 p.' in text \
             or '5 600.00 p' in text:
@@ -508,6 +1830,15 @@ async def process_photo(message: types.Message):
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
 
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 7).value is None:
+            worksheet.update_cell(row_number, column_number + 7, 5600)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 7).value) + 5600
+            worksheet.update_cell(row_number, column_number + 7, amount)
+
     elif 8390 in num_list or '8390 ₽' in text or '8 39О ₽' in text or '8390.00' in text or '8 390.00 p.' in text \
             or '8 390.00 p' in text:
         await bot.send_message(chat_id=message.from_user.id,
@@ -521,6 +1852,15 @@ async def process_photo(message: types.Message):
                                      f'Cумма покупки 8390 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 7).value is None:
+            worksheet.update_cell(row_number, column_number + 7, 8390)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 7).value) + 8390
+            worksheet.update_cell(row_number, column_number + 7, amount)
 
     elif 10990 in num_list or '10990 ₽' in text or '10 99О ₽' in text or '10990.00' in text or '10 990.00 p.' in text \
             or '10 990.00 p' in text:
@@ -536,6 +1876,15 @@ async def process_photo(message: types.Message):
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
 
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 7).value is None:
+            worksheet.update_cell(row_number, column_number + 7, 10990)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 7).value) + 10990
+            worksheet.update_cell(row_number, column_number + 7, amount)
+
     else:
         await bot.send_message(chat_id=message.from_user.id,
                                text=f'Уважаемый(ая) {message.from_user.full_name}, ваша заявка находится на '
@@ -549,10 +1898,6 @@ async def process_photo(message: types.Message):
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
-
-
-
-
 
     os.remove(photo_path)
 

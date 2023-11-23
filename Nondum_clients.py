@@ -9,12 +9,10 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 
-# Обработчик команды /start
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message):
     await message.reply('Привет! Отправь мне фотографию с текстом, и я попробую его извлечь.')
 
-# Обработчик фотографий
 
 @dp.message_handler(content_types=['photo'])
 async def handle_photo(message: types.Message):
