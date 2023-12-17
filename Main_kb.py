@@ -1,10 +1,18 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 
 kb_main = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
-Raspisanie = KeyboardButton('Помощь в учебе')
+Raspisanie = KeyboardButton('🎒Помощь в учебе')
 Prepodi = KeyboardButton('🍾Nondum Party')
-Kafedri = KeyboardButton('Заказы одежды с Poizon')
+Kafedri = KeyboardButton('👟Заказы одежды с Poizon')
 kb_main.add(Raspisanie).insert(Prepodi).add(Kafedri)
+
+kb_main_admins = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
+Raspisanie_admins = KeyboardButton('🎒Помощь в учебе')
+Prepodi_admins = KeyboardButton('🍾Nondum Party')
+Kafedri_admins = KeyboardButton('👟Заказы одежды с Poizon')
+Google_link = KeyboardButton('Ссылка на гугл таблицу')
+Admins_txt = KeyboardButton('Список админов')
+kb_main_admins.add(Raspisanie).insert(Prepodi).add(Kafedri).insert(Google_link).add(Admins_txt)
 
 tusovki_kb = InlineKeyboardMarkup(row_width=2)
 btn1 = InlineKeyboardButton(text='Наше сообщество',

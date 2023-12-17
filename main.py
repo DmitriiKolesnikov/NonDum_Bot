@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 ## 317434662 - Максимилиан Радзевич
 
 
-list_of_admins_id = [683092826, 5490940595, 905449479, 317434662]
+list_of_admins_id = ['683092826', '5490940595', '905449479', '317434662', '773416334']
 promo_list_10_percent = ['dfuTvxe', 'taEm2hQ', 'lKhyJWt', '7ug0avp', 'JA97V17', 'UbCyFsu', 'PFIpAMc', 'Fz48DBY',
                          's1UqXAk', 'fKB4wbQ', 'xWuEG7S', '04yxkqn', '7OJwFPB', 'wF7AvHI', 'XliL9Za', '4tbOWGz',
                          'aDQMnZY', 'kKzMlvh', 'Buq5PRS', 'l7EkUpZ', 'kSzaVQw', 'ueMHa8c', 'KmDaBvS', 'rl7XLR9',
@@ -55,23 +55,39 @@ async def start_command(m: types.Message) -> None:
             users_role = 'Админ'
             list_of_main_google_info = [m.from_user.id, user_name, users_role, current_time]
             worksheet.append_row(list_of_main_google_info)
+
+            await bot.send_photo(chat_id=m.from_user.id,
+                                 photo=start_photo_link,
+                                 caption=start_text,
+                                 reply_markup=kb_main_admins)
+
         else:
             users_role = 'Пользователь'
             list_of_main_google_info = [m.from_user.id, user_name, users_role, current_time]
             worksheet.append_row(list_of_main_google_info)
 
-        await bot.send_message(chat_id=683092826,
+            await bot.send_photo(chat_id=m.from_user.id,
+                                 photo=start_photo_link,
+                                 caption=start_text,
+                                 reply_markup=kb_main)
+
+        await bot.send_message(chat_id=5490940595,
                                text=f'Даниил, в вашей сиситеме зарегистрировался новый пользователь:\n\n'
                                     f'Ник пользователя в Телеграм: @{m.from_user.full_name}\n'
                                     f'Дата регистрации: {datetime.now().date()}'
                                     f'Роль пользователя: {list_of_main_google_info[2]}')
-    else:
-        pass
 
-    await bot.send_photo(chat_id=m.from_user.id,
-                         photo=start_photo_link,
-                         caption=start_text,
-                         reply_markup=kb_main)
+    else:
+        if str(m.from_user.id) in list_of_admins_id:
+            await bot.send_photo(chat_id=m.from_user.id,
+                                 photo=start_photo_link,
+                                 caption=start_text,
+                                 reply_markup=kb_main_admins)
+        else:
+            await bot.send_photo(chat_id=m.from_user.id,
+                                 photo=start_photo_link,
+                                 caption=start_text,
+                                 reply_markup=kb_main)
 
     await m.delete()
 
@@ -85,7 +101,7 @@ async def description_command(m: types.Message) -> None:
     await m.delete()
 
 
-@dp.message_handler(text='Помощь в учебе')
+@dp.message_handler(text='🎒Помощь в учебе')
 async def help_in_studying(m: types.Message) -> None:
     list_of_courses = ['Первый курс', 'Второй курс']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -109,7 +125,7 @@ async def tusovki_command(m: types.Message) -> None:
     await m.delete()
 
 
-@dp.message_handler(text='Заказы одежды с Poizon')
+@dp.message_handler(text='👟Заказы одежды с Poizon')
 async def orders_from_poizon(m: types.Message) -> None:
     await bot.send_photo(chat_id=m.from_user.id,
                          photo=orders_from_poizon_photo,
@@ -117,6 +133,30 @@ async def orders_from_poizon(m: types.Message) -> None:
                          parse_mode="HTML",
                          reply_markup=poison_kb)
     await m.delete()
+
+
+@dp.message_handler(text='Ссылка на гугл таблицу')
+async def google_link(m: types.Message):
+    await bot.send_message(chat_id=m.from_user.id,
+                           text=f"Уважаемый <b>{m.from_user.full_name}</b>, вам представлена ссылка на"
+                                f" Google таблицу\n\n"
+                                f"https://docs.google.com/spreadsheets/d/1WNjLQIbB0yfUQcu6Wy154PtCHouhp_ZvCBJ"
+                                f"5FWXUTtY/edit?usp=sharing",
+                           parse_mode="HTML")
+
+    await m.delete()
+
+
+@dp.message_handler(text='Список админов')
+async def admins_list_command(m: types.Message):
+    await bot.send_message(chat_id=m.from_user.id,
+                           text=f'Уважаемый {m.from_user.full_name}, вам представлен список админов: \n\n'
+                                f'Никнейм пользователя - @Jim Kolesnikov\n\n'
+                                f'Никнейм пользователя - @m.r.\n\n'
+                                f'Никнейм пользователя - @Turgen4ik\n\n'
+                                f'Никнейм пользователя - @слим из группы центр\n\n'
+                                f'Никнейм пользвателя - @Losocb',
+                           parse_mode="HTML")
 
 
 @dp.message_handler()
@@ -127,22 +167,22 @@ async def words_handler(m: types.Message):
     if len(message) == 1 and len(message[0]) == 7 and message[0] in promo_list_10_percent:
         promo_list_10_percent.remove(message[0])
         current_time = datetime.now()
-        if current_time < datetime.strptime('2023-10-29', "%Y-%m-%d"):
+        if current_time < datetime.strptime('2023-12-16', "%Y-%m-%d"):
             buttons = [
-               InlineKeyboardButton(text='Оплатить 2000Р', callback_data='payment_ticket_2000')
+               InlineKeyboardButton(text='Оплатить 2250Р', callback_data='payment_ticket_2000')
             ]
             keyboard = InlineKeyboardMarkup().row(*buttons)
             await bot.send_message(chat_id=m.from_user.id,
-                                   text=f'Для произведения оплаты нажмите на «Оплатить 2000Р»',
+                                   text=f'Для произведения оплаты нажмите на «Оплатить 2250Р»',
                                    parse_mode="HTML",
                                    reply_markup=keyboard)
-        elif current_time >= datetime.strptime('2023-10-29', "%Y-%m-%d"):
+        elif current_time >= datetime.strptime('2023-12-16', "%Y-%m-%d"):
             buttons = [
-               InlineKeyboardButton(text='Оплатить 2400Р', callback_data='payment_ticket_2400')
+               InlineKeyboardButton(text='Оплатить 2500Р', callback_data='payment_ticket_2400')
             ]
             keyboard = InlineKeyboardMarkup().row(*buttons)
             await bot.send_message(chat_id=m.from_user.id,
-                                   text=f'Для произведения оплаты нажмите на «Оплатить 2400Р»',
+                                   text=f'Для произведения оплаты нажмите на «Оплатить 2500Р»',
                                    parse_mode="HTML",
                                    reply_markup=keyboard)
         await m.delete()
@@ -160,13 +200,50 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
     if callback.data == 'parties':
         await bot.send_photo(chat_id=callback.from_user.id,
                              caption=halloween_text_1,
-                             photo='https://sun1-93.userapi.com/impg/Rjd-QEhjB1t5dqyM_NmUnvucvmRcpRKWOfkDmw/uoGUzOvTivQ'
-                                   '.jpg?size=1179x763&quality=95&sign=4bea81681410334210ce538df26d36b8&type=album',
+                             photo='https://sun1-21.userapi.com/impf/Q1eSnTcGECj3kiJbFcoV8u3CV7Q4vA2TojWf5g/kx_k2bcIVJ'
+                                   'c.jpg?size=1024x1024&quality=96&sign=f60d8e76a856159a1e585d03be093568&c_uniq_tag='
+                                   'oz_yuVEL-P4YWxR2Fopqr_wgsRBXvMjJy0I8rZPasJ8&type=album',
                              parse_mode="HTML")
         await bot.send_message(chat_id=callback.from_user.id,
                                text=halloween_text_2,
                                parse_mode="HTML",
                                reply_markup=buy_ticket_kb)
+
+        await callback.message.delete()
+
+    elif callback.data == 'buy':
+        current_time = datetime.now()
+        if current_time < datetime.strptime('2023-12-16', "%Y-%m-%d"):
+            buy_buttons_first = [
+                InlineKeyboardButton('Оплатить 2750Р', callback_data='payment_tickets_2500'),
+                InlineKeyboardButton('Промокод', callback_data='promo')
+            ]
+            buy_kb = InlineKeyboardMarkup().row(*buy_buttons_first)
+            await bot.send_message(chat_id=callback.from_user.id,
+                                   text=f'для совешения покупки, нажмите на кнопку «Оплатить 2750Р».\n\n'
+                                        f'Если вы имеете промокод для скидки, то нажите на кнопку:\n'
+                                        f'«Промокод»',
+                                   parse_mode="HTML",
+                                   reply_markup=buy_kb)
+        if current_time > datetime.strptime('2023-12-16', "%Y-%m-%d"):
+            buy_buttons = [
+                InlineKeyboardButton('Оплатить 3000Р', callback_data='payment_tickets_3000'),
+                InlineKeyboardButton('Промокод', callback_data='promo')
+            ]
+            buy_kb = InlineKeyboardMarkup().row(*buy_buttons)
+            await bot.send_message(chat_id=callback.from_user.id,
+                                   text=f'для совешения покупки, нажмите на кнопку «Оплатить 3000Р».\n\n'
+                                        f'Если вы имеете промокод для скидки, то нажите на кнопку:\n'
+                                        f'«Промокод»',
+                                   parse_mode="HTML",
+                                   reply_markup=buy_kb)
+
+        await callback.message.delete()
+
+    elif callback.data == 'promo':
+        await bot.send_message(chat_id=callback.from_user.id,
+                               text=f'Введите промокод, который вы получили от организаторов',
+                               parse_mode="HTML")
 
         await callback.message.delete()
 
@@ -213,11 +290,12 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, ваша заявка о '
                                     f'самостоятельном '
-                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется'
-                                    f'преподавтель. \n\n Успехов в учебе!')
+                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется '
+                                    f'преподавтель. \n\n Успехов в учебе!',
+                               parse_mode="HTML")
 
-        await bot.send_message(chat_id=683092826,
-                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+        await bot.send_message(chat_id=317434662,
+                               text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
                                     f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
@@ -228,11 +306,12 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, ваша заявка о '
                                     f'самостоятельном '
-                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется'
-                                    f'преподавтель. \n\n Успехов в учебе!')
+                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется '
+                                    f'преподавтель. \n\n Успехов в учебе!',
+                               parse_mode="HTML")
 
-        await bot.send_message(chat_id=683092826,
-                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+        await bot.send_message(chat_id=317434662,
+                               text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
                                     f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
@@ -245,11 +324,12 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, ваша заявка о '
                                     f'самостоятельном '
-                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется'
-                                    f'преподавтель. \n\n Успехов в учебе!')
+                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется '
+                                    f'преподавтель. \n\n Успехов в учебе!',
+                               parse_mode="HTML")
 
-        await bot.send_message(chat_id=683092826,
-                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+        await bot.send_message(chat_id=317434662,
+                               text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
                                     f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
@@ -262,11 +342,12 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b>, ваша заявка о '
                                     f'самостоятельном '
-                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется'
-                                    f'преподавтель. \n\n Успехов в учебе!')
+                                    f'прохождении курса успешно отправлена, в скором времени с вами свяжется '
+                                    f'преподавтель. \n\n Успехов в учебе!',
+                               parse_mode="HTML")
 
-        await bot.send_message(chat_id=683092826,
-                               text=f'Уважаемый, Кто-то там, у вас появилась заявка на доступ к материалам для '
+        await bot.send_message(chat_id=317434662,
+                               text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
                                     f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
@@ -527,54 +608,19 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                parse_mode='HTML',
                                reply_markup=types_of_group_lessons_second_demo_kb)
 
-    elif callback.data == 'buy':
-        current_time = datetime.now()
-        if current_time < datetime.strptime('2023-10-29', "%Y-%m-%d"):
-            buy_buttons_first = [
-                InlineKeyboardButton('Оплатить 2500Р', callback_data='payment_tickets_2500'),
-                InlineKeyboardButton('Промокод', callback_data='promo')
-            ]
-            buy_kb = InlineKeyboardMarkup().row(*buy_buttons_first)
-            await bot.send_message(chat_id=callback.from_user.id,
-                                   text=f'для совешения покупки, нажмите на кнопку «Оплатить 2500Р».\n\n'
-                                        f'Если вы имеете промокод для скидки, то нажите на кнопку:\n'
-                                        f'«Воспользоваться промокодом»',
-                                   parse_mode="HTML",
-                                   reply_markup=buy_kb)
-        if current_time > datetime.strptime('2023-10-29', "%Y-%m-%d"):
-            buy_buttons = [
-                InlineKeyboardButton('Оплатить 3000Р', callback_data='payment_tickets_3000'),
-                InlineKeyboardButton('Промокод', callback_data='promo')
-            ]
-            buy_kb = InlineKeyboardMarkup().row(*buy_buttons)
-            await bot.send_message(chat_id=callback.from_user.id,
-                                   text=f'для совешения покупки, нажмите на кнопку «Оплатить 2500Р».\n\n'
-                                        f'Если вы имеете промокод для скидки, то нажите на кнопку:\n'
-                                        f'«Воспользоваться промокодом»',
-                                   parse_mode="HTML",
-                                   reply_markup=buy_kb)
-
-        await callback.message.delete()
-
-    elif callback.data == 'promo':
-        await bot.send_message(chat_id=callback.from_user.id,
-                               text=f'Введите промокод, который вы получили от организаторов',
-                               parse_mode="HTML")
-
-        await callback.message.delete()
-
     elif callback.data == 'payment_ticket_2000':
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
                                     f'скриншот, '
-                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2000р</b>.\n\n'
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2250р</b>.\n\n'
                                     f'<b>Правила отправления скриншота о переводе</b>:\n\n'
                                     f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
-                                    f' <b>2000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f' <b>2250 рублей</b>,\n\n'
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79998849383</b>\n\n'
+                                    f'Тинькофф',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -583,14 +629,15 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
                                     f'скриншот, '
-                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2400р</b>.\n\n'
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2500р</b>.\n\n'
                                     f'<b>Правила отправления скриншота о переводе</b>:\n\n'
                                     f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
-                                    f' <b>2400 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f' <b>2500 рублей</b>,\n\n'
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79998849383</b>\n\n'
+                                    f'Тинькофф',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -605,8 +652,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>3000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79998849383</b>\n\n'
+                                    f'Тинькофф',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -615,14 +663,15 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
                                     f'скриншот, '
-                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2500р</b>.\n\n'
+                                    f'подтверждающий оплату. <b>Сумма перевода</b> должна составлять <b>2750р</b>.\n\n'
                                     f'<b>Правила отправления скриншота о переводе</b>:\n\n'
                                     f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
-                                    f' <b>2500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f' <b>2750 рублей</b>,\n\n'
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79998849383</b>\n\n'
+                                    f'Тинькофф',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -636,9 +685,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'<b>Дата</b> перевода должна быть <b>сегдняшней</b>, то есть'
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
-                                    f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -653,8 +702,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -669,8 +719,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -685,8 +736,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>16500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -701,8 +753,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>21900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -717,8 +770,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -733,8 +787,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -749,8 +804,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -765,8 +821,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>16500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -781,8 +838,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>21900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -797,8 +855,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>1000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -813,8 +872,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -829,8 +889,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -845,8 +906,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>8390 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -861,8 +923,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>10990 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -878,8 +941,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>1000 рублей</b>,\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -894,8 +958,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -910,8 +975,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -926,8 +992,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>8390 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -942,8 +1009,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>10990 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -958,8 +1026,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -974,8 +1043,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -990,8 +1060,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1006,8 +1077,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>16500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1022,8 +1094,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>21900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1038,8 +1111,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>1000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1054,8 +1128,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1070,8 +1145,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5600 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1086,8 +1162,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>8390 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1102,8 +1179,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11990 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1118,8 +1196,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1134,8 +1213,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1150,8 +1230,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1166,8 +1247,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>16500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1182,8 +1264,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>21900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1198,8 +1281,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>1000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1214,8 +1298,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1230,8 +1315,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5600 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1246,8 +1332,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>8390 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1262,8 +1349,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>10990 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1278,8 +1366,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1294,8 +1383,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1310,8 +1400,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1326,8 +1417,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>16500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1342,8 +1434,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>21900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1358,8 +1451,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>1000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1374,8 +1468,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1390,8 +1485,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5600 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1406,8 +1502,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>8390 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1422,8 +1519,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>10990 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должен быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1438,8 +1536,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1454,8 +1553,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1470,8 +1570,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>11000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1486,8 +1587,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>16500 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1502,8 +1604,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>21900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1518,8 +1621,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>1000 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1534,8 +1638,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>2900 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1550,8 +1655,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>5600 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1566,8 +1672,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>8390 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1582,8 +1689,9 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>{datetime.now().date()}</b>,\n\n'
                                     f'<b>Сумма перевода</b> не должна отличаться от указанной сверху, то есть'
                                     f' <b>10990 рублей</b>,\n\n'
-                                    f'<b>Имя человека</b>, которому совершается перевод, должно быть'
-                                    f' <b>Иванов Кто-то Там</b>',
+                                    f'<b>Номер телефона</b>, по которому совершается перевод, должно быть'
+                                    f' <b>+79017572093</b>\n\n'
+                                    f'Сбербанк',
                                parse_mode="HTML")
 
         await callback.message.delete()
@@ -1613,10 +1721,6 @@ async def process_photo(message: types.Message):
                 num = ''
     if num != '':
         num_list.append(int(num))
-
-    day = datetime.now().day
-    month = datetime.now().month
-    year = datetime.now().year
 
     if 3000 in num_list or '3000 ₽' in text or '3 ООО ₽' in text or '3000.00' in text or '3 000.00 p.' in text or \
             '3 000.00 p' in text:
@@ -1688,6 +1792,80 @@ async def process_photo(message: types.Message):
         else:
             amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
             price = int(worksheet.cell(row_number, column_number + 5).value) + 2000
+            worksheet.update_cell(row_number, column_number + 4, amount)
+            worksheet.update_cell(row_number, column_number + 5, price)
+
+    elif 2000 in num_list or '2250 ₽' in text or '2 25О ₽' in text or '2250.00' in text or '2 250.00 p.' in text or \
+            '2 250.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
+                                    f'Сумма покупки составила 2250 рублей\n')
+
+        await bot.send_photo(chat_id=5490940595,
+                             caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
+                                     f'Данные пользователя:\n'
+                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
+                                     f'Сумма покупки составила <b>2250 рублей</b>',
+                             parse_mode='HTML',
+                             photo=message.photo[-1].file_id)
+
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2250 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 5).value is None and \
+                worksheet.cell(row_number, column_number + 4).value is None:
+            worksheet.update_cell(row_number, column_number + 4, 1)
+            worksheet.update_cell(row_number, column_number + 5, 2250)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
+            price = int(worksheet.cell(row_number, column_number + 5).value) + 2250
+            worksheet.update_cell(row_number, column_number + 4, amount)
+            worksheet.update_cell(row_number, column_number + 5, price)
+
+    elif 2000 in num_list or '2750 ₽' in text or '2 75О ₽' in text or '2750.00' in text or '2 750.00 p.' in text or \
+            '2 750.00 p' in text:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f'Уважаемый(ая) {message.from_user.full_name}, вы совершили покупку.\n'
+                                    f'Сумма покупки составила 2750 рублей\n')
+
+        await bot.send_photo(chat_id=5490940595,
+                             caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
+                                     f'Данные пользователя:\n'
+                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
+                                     f'Сумма покупки составила <b>2750 рублей</b>',
+                             parse_mode='HTML',
+                             photo=message.photo[-1].file_id)
+
+        await bot.send_photo(chat_id=683092826,
+                             caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
+                                     f'Вот его данные:\n\n'
+                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Дата покупки: {datetime.now().date()}\n'
+                                     f'Cумма покупки 2750 рублей\n'
+                                     f'Скриншот оплаты представлен сверху',
+                             photo=message.photo[-1].file_id)
+
+        cell = worksheet.find(str(message.from_user.id))
+        row_number = cell.row
+        column_number = cell.col
+        if worksheet.cell(row_number, column_number + 5).value is None and \
+                worksheet.cell(row_number, column_number + 4).value is None:
+            worksheet.update_cell(row_number, column_number + 4, 1)
+            worksheet.update_cell(row_number, column_number + 5, 2750)
+        else:
+            amount = int(worksheet.cell(row_number, column_number + 4).value) + 1
+            price = int(worksheet.cell(row_number, column_number + 5).value) + 2750
             worksheet.update_cell(row_number, column_number + 4, amount)
             worksheet.update_cell(row_number, column_number + 5, price)
 
