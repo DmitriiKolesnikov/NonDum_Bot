@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 ## 317434662 - Максимилиан Радзевич
 
 
-list_of_admins_id = ['683092826', '5490940595', '905449479', '317434662', '773416334']
+list_of_admins_id = [683092826, 5490940595, 905449479, 317434662, 773416334, 683092826]
 promo_list_10_percent = ['dfuTvxe', 'taEm2hQ', 'lKhyJWt', '7ug0avp', 'JA97V17', 'UbCyFsu', 'PFIpAMc', 'Fz48DBY',
                          's1UqXAk', 'fKB4wbQ', 'xWuEG7S', '04yxkqn', '7OJwFPB', 'wF7AvHI', 'XliL9Za', '4tbOWGz',
                          'aDQMnZY', 'kKzMlvh', 'Buq5PRS', 'l7EkUpZ', 'kSzaVQw', 'ueMHa8c', 'KmDaBvS', 'rl7XLR9',
