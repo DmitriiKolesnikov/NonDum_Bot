@@ -299,7 +299,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=317434662,
                                text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
-                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.username}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
                                     f'Выбранный предмет: <b>математический анализ</b>',
                                parse_mode='HTML')
@@ -315,7 +315,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=317434662,
                                text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
-                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.username}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
                                     f'Выбранный предмет: <b>линейная алгебра</b>',
                                parse_mode='HTML')
@@ -333,7 +333,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=317434662,
                                text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
-                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.username}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
                                     f'Выбранный предмет: <b>экономическая география</b>',
                                parse_mode='HTML')
@@ -351,7 +351,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
         await bot.send_message(chat_id=317434662,
                                text=f'Уважаемый, Максимилиан, у вас появилась заявка на доступ к материалам для '
                                     f'самомтоятельной подготовки. Данные заявки:\n\n'
-                                    f'Имя в Телеграме: <b>{callback.from_user.full_name}</b>,\n'
+                                    f'Имя в Телеграме: <b>{callback.from_user.username}</b>,\n'
                                     f'Дата подачи заявки: <b>{datetime.now().date()}</b>, \n'
                                     f'Выбранный предмет: <b>введение в экономику/b>',
                                parse_mode='HTML')
@@ -1732,7 +1732,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>3000 рублей</b>',
                              parse_mode='HTML',
@@ -1741,7 +1741,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 3000 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1769,7 +1769,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2000 рублей</b>',
                              parse_mode='HTML',
@@ -1778,7 +1778,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2000 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1806,7 +1806,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2250 рублей</b>',
                              parse_mode='HTML',
@@ -1815,7 +1815,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2250 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1843,7 +1843,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2750 рублей</b>',
                              parse_mode='HTML',
@@ -1852,7 +1852,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2750 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1880,7 +1880,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2500 рублей</b>',
                              parse_mode='HTML',
@@ -1889,7 +1889,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2500 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1917,7 +1917,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2400 рублей</b>',
                              parse_mode='HTML',
@@ -1926,7 +1926,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2400 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1954,7 +1954,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>1000 рублей</b>',
                              parse_mode='HTML',
@@ -1963,7 +1963,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 1000 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -1972,7 +1972,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=317434662,
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку одного группового занятия.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>1000 рублей</b>',
                              parse_mode='HTML',
@@ -1996,7 +1996,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2100 рублей</b>',
                              parse_mode='HTML',
@@ -2005,7 +2005,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2100 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2015,7 +2015,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку одного индивидуального '
                                      f'занятия.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2100 рублей</b>',
                              parse_mode='HTML',
@@ -2039,7 +2039,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>5500 рублей</b>',
                              parse_mode='HTML',
@@ -2048,7 +2048,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 5500 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2057,7 +2057,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=317434662,
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку шести групповых занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>5500 рублей</b>',
                              parse_mode='HTML',
@@ -2081,7 +2081,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>11000 рублей</b>',
                              parse_mode='HTML',
@@ -2090,7 +2090,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 11000 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2100,7 +2100,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку шести индивидуальных '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>5500 рублей</b>',
                              parse_mode='HTML',
@@ -2124,7 +2124,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>16500 рублей</b>',
                              parse_mode='HTML',
@@ -2133,7 +2133,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 16500 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2143,7 +2143,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку девяти индивидуальных '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>16500 рублей</b>',
                              parse_mode='HTML',
@@ -2167,7 +2167,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>21900 рублей</b>',
                              parse_mode='HTML',
@@ -2176,7 +2176,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 21900 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2186,7 +2186,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку двеннадцати индивидуальных '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>21900 рублей</b>',
                              parse_mode='HTML',
@@ -2210,7 +2210,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2900 рублей</b>',
                              parse_mode='HTML',
@@ -2219,7 +2219,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 2900 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2229,7 +2229,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку трех групповых '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>2900 рублей</b>',
                              parse_mode='HTML',
@@ -2253,7 +2253,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>5600 рублей</b>',
                              parse_mode='HTML',
@@ -2262,7 +2262,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 5600 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2272,7 +2272,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку шести групповых '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>5600 рублей</b>',
                              parse_mode='HTML',
@@ -2296,7 +2296,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>8390 рублей</b>',
                              parse_mode='HTML',
@@ -2305,7 +2305,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 8390 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2315,7 +2315,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку девяти групповых '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>8390 рублей</b>',
                              parse_mode='HTML',
@@ -2339,7 +2339,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=5490940595,
                              caption=f'Уважаемый Даниилл, пользователь совершил покупку в вашем боте.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>10990 рублей</b>',
                              parse_mode='HTML',
@@ -2348,7 +2348,7 @@ async def process_photo(message: types.Message):
         await bot.send_photo(chat_id=683092826,
                              caption=f'Дмитрий Михайлович, пользователь совершил покупку в телеграм боте. '
                                      f'Вот его данные:\n\n'
-                                     f'Ник в Телеграме: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграме: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Cумма покупки 10990 рублей\n'
                                      f'Скриншот оплаты представлен сверху',
@@ -2358,7 +2358,7 @@ async def process_photo(message: types.Message):
                              caption=f'Уважаемый Максимилиан, пользователь совершил покупку двеннадцати групповых '
                                      f'занятий.\n'
                                      f'Данные пользователя:\n'
-                                     f'Ник в телеграме: <b>{message.from_user.full_name}</b>\n'
+                                     f'Ник в телеграме: <b>{message.from_user.username}</b>\n'
                                      f'Дата совершения покупки: <b>{datetime.now().date()}</b>'
                                      f'Сумма покупки составила <b>10990 рублей</b>',
                              parse_mode='HTML',
@@ -2382,7 +2382,7 @@ async def process_photo(message: types.Message):
                              caption=f'Дмитрий Михайлович, произошла ошибка во время оплаты: невозможно проверить'
                                      f'действительность оплаты.\n\n'
                                      f'Данные о пользователе:\n\n'
-                                     f'Ник в Телеграм: {message.from_user.full_name}\n'
+                                     f'Ник в Телеграм: {message.from_user.username}\n'
                                      f'Дата покупки: {datetime.now().date()}\n'
                                      f'Скриншот оплаты представлен сверху',
                              photo=message.photo[-1].file_id)
