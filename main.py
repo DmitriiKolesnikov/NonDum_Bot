@@ -611,6 +611,7 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                reply_markup=types_of_group_lessons_second_demo_kb)
 
     elif callback.data == 'payment_ticket_2000':
+
         await bot.send_message(chat_id=callback.from_user.id,
                                text=f'Уважаемый(ая) <b>{callback.from_user.full_name}</b> пришлите, пожалуйста '
                                     f'скриншот, '
@@ -624,6 +625,16 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79998849383</b>\n\n'
                                     f'Тинькофф',
                                parse_mode="HTML")
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -642,6 +653,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Тинькофф',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == 'payment_tickets_3000':
@@ -658,6 +680,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79998849383</b>\n\n'
                                     f'Тинькофф',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -676,6 +709,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Тинькофф',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_f_m':
@@ -691,6 +735,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -709,6 +764,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '11000_f_m':
@@ -725,6 +791,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -743,6 +820,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '21900_f_m':
@@ -759,6 +847,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -777,6 +876,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '5500_f_l':
@@ -793,6 +903,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -811,6 +932,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '16500_f_l':
@@ -827,6 +959,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -845,6 +988,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '1000_m_f':
@@ -861,6 +1015,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -879,6 +1044,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '5501_m_f':
@@ -895,6 +1071,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -913,6 +1100,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '10990_m_f':
@@ -929,6 +1127,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -948,6 +1157,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_l_f':
@@ -964,6 +1184,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -982,6 +1213,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '8390_l_f':
@@ -998,6 +1240,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1016,6 +1269,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_matstat':
@@ -1032,6 +1296,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1050,6 +1325,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '11000_matstat':
@@ -1066,6 +1352,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1084,6 +1381,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '21900_matstat':
@@ -1100,6 +1408,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1118,6 +1437,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_g_matstat':
@@ -1134,6 +1464,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1152,6 +1493,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '8390_g_matstat':
@@ -1168,6 +1520,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1186,6 +1549,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_mikra':
@@ -1202,6 +1576,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1220,6 +1605,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '11000_mikra':
@@ -1236,6 +1632,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1254,6 +1661,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '21900_mikra':
@@ -1270,6 +1688,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1288,6 +1717,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_g_mikra':
@@ -1304,6 +1744,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1322,6 +1773,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '8390_g_mikra':
@@ -1338,6 +1800,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1356,6 +1829,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_makra':
@@ -1372,6 +1856,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1390,6 +1885,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '11000_makra':
@@ -1406,6 +1912,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1424,6 +1941,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '21900_makra':
@@ -1440,6 +1968,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1458,6 +1997,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_g_makra':
@@ -1474,6 +2024,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1492,6 +2053,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '8390_g_makra':
@@ -1508,6 +2080,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1526,6 +2109,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_demo':
@@ -1542,6 +2136,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1560,6 +2165,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '11000_demo':
@@ -1576,6 +2192,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1594,6 +2221,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '21900_demo':
@@ -1610,6 +2248,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1628,6 +2277,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '2900_g_demo':
@@ -1644,6 +2304,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
@@ -1679,6 +2350,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f'Сбербанк',
                                parse_mode="HTML")
 
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
+
         await callback.message.delete()
 
     elif callback.data == '10990_g_demo':
@@ -1695,6 +2377,17 @@ async def work_with_text_command(callback: types.CallbackQuery) -> None:
                                     f' <b>+79017572093</b>\n\n'
                                     f'Сбербанк',
                                parse_mode="HTML")
+
+        screenshot_photo = open('screenshot.png', 'rb')
+        await bot.send_photo(chat_id=callback.from_user.id,
+                             caption=f'Уважаемый {callback.from_user.full_name}, убедительно вас просим присылать '
+                                     f'<b>именно скриншот квитанции</b>.\n'
+                                     f'В качестве примера вам предоставлен скриншот оплаты.\n\n'
+                                     f'Будьте внимательны при отправки скриншота квитанции об оплате.\n'
+                                     f'Все данные должны совпадать, в противном случае могут возникнуть проблемы, '
+                                     f'для решения которых придется ждать ответа поддержки.',
+                             parse_mode="HTML",
+                             photo=screenshot_photo)
 
         await callback.message.delete()
 
