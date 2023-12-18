@@ -160,7 +160,7 @@ async def words_handler(m: types.Message):
 
     message = m.text.split()
 
-    if len(message) == 1 and len(message[0]) == 7 and message[0] in promo_list_10_percent:
+    if len(message) == 1 and message[0] in promo_list_10_percent:
         current_time = datetime.now()
         if current_time < datetime.strptime('2023-12-16', "%Y-%m-%d"):
             buttons = [
