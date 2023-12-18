@@ -49,7 +49,7 @@ async def start_command(m: types.Message) -> None:
     values_id_list = worksheet.col_values(1)
 
     if str(m.from_user.id) not in values_id_list:
-        user_name = m.from_user.full_name
+        user_name = m.from_user.username
         current_time = str(datetime.now().date())
         if m.from_user.id in list_of_admins_id:
             users_role = 'Админ'
@@ -151,11 +151,11 @@ async def google_link(m: types.Message):
 async def admins_list_command(m: types.Message):
     await bot.send_message(chat_id=m.from_user.id,
                            text=f'Уважаемый {m.from_user.full_name}, вам представлен список админов: \n\n'
-                                f'Никнейм пользователя - @Jim Kolesnikov\n\n'
-                                f'Никнейм пользователя - @m.r.\n\n'
+                                f'Никнейм пользователя - @jimsgood\n\n'
+                                f'Никнейм пользователя - @mmaxximiliann\n\n'
                                 f'Никнейм пользователя - @Turgen4ik\n\n'
                                 f'Никнейм пользователя - @слим из группы центр\n\n'
-                                f'Никнейм пользвателя - @Losocb',
+                                f'Никнейм пользвателя - @daniilPm ',
                            parse_mode="HTML")
 
     await m.delete()
