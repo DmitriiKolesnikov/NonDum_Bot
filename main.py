@@ -27,16 +27,10 @@ logger = logging.getLogger(__name__)
 ## 317434662 - Максимилиан Радзевич
 
 
-list_of_admins_id = [683092826, 5490940595, 905449479, 317434662, 773416334, 683092826]
-promo_list_10_percent = ['dfuTvxe', 'taEm2hQ', 'lKhyJWt', '7ug0avp', 'JA97V17', 'UbCyFsu', 'PFIpAMc', 'Fz48DBY',
-                         's1UqXAk', 'fKB4wbQ', 'xWuEG7S', '04yxkqn', '7OJwFPB', 'wF7AvHI', 'XliL9Za', '4tbOWGz',
-                         'aDQMnZY', 'kKzMlvh', 'Buq5PRS', 'l7EkUpZ', 'kSzaVQw', 'ueMHa8c', 'KmDaBvS', 'rl7XLR9',
-                         'Ym83cc8', 'M07aRQl', 'PsxhOO9', 'Vz5bMuk', 'UlJJNZz', 'yJ5bzHM', 'Wumyq70', 'sn9uAP4',
-                         'GwgNJeT', 'loRRMhj', 'ZW3k8Vf', 'L9fwB7z', '1c5Gr8m', 'TZQ8UsD', '1svcWa2', '4ZuCV7N',
-                         '8bhL4hp', 'xVR4ENw', 'hP5H5cK', 'd7Cjb3U', 'LUyqard', 'zI9t5g1', 'GeP692A', 'NTswAGT',
-                         'zECBqA2', 'cow4G7q']
-
-# Setup prices
+list_of_admins_id = [683092826, 5490940595, 905449479, 317434662, 773416334]
+promo_list_10_percent = ['ORG.V', 'ORG.K', 'ORG.D', 'ORG.B', 'ORG.A', 'ORG', 'e209', 'Julich',
+                         'O$$IN', 'ARS', 'DARMARHI', 'Barbi', 'danyakoroly', 'Klubnika', 'RECOM', 'Гость',
+                         'tatarinov3']
 
 
 async def on_startup(_):
@@ -167,7 +161,6 @@ async def words_handler(m: types.Message):
     message = m.text.split()
 
     if len(message) == 1 and len(message[0]) == 7 and message[0] in promo_list_10_percent:
-        promo_list_10_percent.remove(message[0])
         current_time = datetime.now()
         if current_time < datetime.strptime('2023-12-16', "%Y-%m-%d"):
             buttons = [
@@ -191,8 +184,8 @@ async def words_handler(m: types.Message):
 
     elif len(message) == 1 and len(message[0]) == 7 and message[0] not in promo_list_10_percent:
         await bot.send_message(chat_id=m.from_user.id,
-                               text=f'К сожалению, данный промокод <b>уже был использован</b> '
-                                    f'или такого <b>не существует</b>. \n\nПопробуйте ввести другой',
+                               text=f'К сожалению, данного промокода <b>не существует</b>. '
+                                    f'\n\nПопробуйте ввести другой',
                                parse_mode="HTML")
         await m.delete()
 
