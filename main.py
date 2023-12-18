@@ -158,6 +158,8 @@ async def admins_list_command(m: types.Message):
                                 f'Никнейм пользвателя - @Losocb',
                            parse_mode="HTML")
 
+    await m.delete()
+
 
 @dp.message_handler()
 async def words_handler(m: types.Message):
